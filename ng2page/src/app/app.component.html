@@ -1,15 +1,62 @@
-<div style="text-align:center">  
-  <h1>IdentityIQ Scaffolding plugin</h1>  
-<div>  
-<form>  
-        <div class="form-group">  
-                <label>Requestee: </label>  
-                <input [(ngModel)]="identityName" placeholder="Identity Name" name="identityName" />  
-                <button (click)="getInfo()">Get Identity Info</button>  
-        </div>  
-        <br/>  
-</form>  
-   
-<div>{{identityInfo | json}}</div>
+<div class="container">
+  <div class="header">
+    <h1>IdentityIQ Scaffolding Plugin</h1>
+  </div>
 
+  <form (ngSubmit)="getInfo()" #identityForm="ngForm" class="identity-form">
+    <div class="form-group">
+      <label for="identityName">Identity Name:</label>
+      <input
+        id="identityName"
+        type="text"
+        [(ngModel)]="identityName"
+        placeholder="Enter identity name"
+        name="identityName"
+        required
+        minlength="1"
+        class="form-control"
+        [attr.aria-invalid]="error ? 'true' : 'false'"
+        [attr.aria-describedby]="error ? 'error-message' : null"
+      />
+      <button
+        type="submit"
+        [disabled]="loading || !identityName?.trim()"
+        class="btn btn-primary"
+      >
+        <span *ngIf="!loading">Get Identity Info</span>
+        <span *ngIf="loading">
+          Loading<span class="loading-dots">...</span>
+        </span>
+      </button>
+    </div>
 
+    <div
+      *ngIf="error"
+      id="error-message"
+      class="alert alert-danger"
+      role="alert"
+      aria-live="polite"
+    >
+      <strong>Error:</strong> {{ error }}
+    </div>
+  </form>
+
+  <div *ngIf="identityInfo && !loading" class="result" role="region" aria-label="Identity Information">
+    <h2>Identity Information</h2>
+    <dl class="identity-details">
+      <dt>Name:</dt>
+      <dd>{{ identityInfo.name }}</dd>
+
+      <dt>ID:</dt>
+      <dd>{{ identityInfo.id }}</dd>
+
+      <dt>Email:</dt>
+      <dd>{{ identityInfo.email || 'N/A' }}</dd>
+    </dl>
+
+    <details class="raw-json">
+      <summary>View Raw JSON</summary>
+      <pre><code>{{ identityInfo | json }}</code></pre>
+    </details>
+  </div>
+</div>

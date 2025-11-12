@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE Plugin PUBLIC "sailpoint.dtd" "sailpoint.dtd">  
-<Plugin certificationLevel="None" displayName="Scaffolding Plugin" minSystemVersion="7.1" maxSystemVersion="7.1" name="ScaffoldingPlugin" version="@VERSION@">  
+<Plugin certificationLevel="None" displayName="Scaffolding Plugin" minSystemVersion="8.4" maxSystemVersion="8.4" name="ScaffoldingPlugin" version="@VERSION@">  
   <Attributes>  
     <Map>  
       <entry key="minUpgradableVersion" value="1.0" />  
